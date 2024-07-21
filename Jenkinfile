@@ -11,7 +11,7 @@ pipeline {
         stage('checkout') {
             steps {
                 script{
-                	dir("Terraform-Standalone"){
+                	dir("terraform"){
                 		git "https://github.com/ilyesned/Terraform_aws.git"
                 	}
                 }
