@@ -12,7 +12,7 @@ pipeline {
             steps {
                 script{
                 	dir("terraform"){
-                		git https://github.com/ilyesned/Terraform_aws.git
+                		git "https://github.com/ilyesned/Terraform_aws.git"
                 	}
                 }
             }
