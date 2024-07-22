@@ -10,7 +10,6 @@ pipeline {
     stages {
         stage('checkout') {
             steps {
-            	git branch: 'main',
                 git 'https://github.com/ilyesned/Terraform_aws.git'
             }
         }
