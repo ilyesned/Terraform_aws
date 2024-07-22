@@ -1,16 +1,13 @@
 pipeline {
-    parameters {
-        booleanParam(name: 'autoApprove', defaultValue: false, description: 'Automatically run apply after generating plan?')
-    }
+    agent any
     environment {
-        AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY')
+        AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
     }
-    agent any
     stages {
-        stage('checkout') {
+        stage('Checkout') {
             steps {
-                git 'https://github.com/ilyesned/Terraform_aws.git'
+                git url: 'https://github.com/ilyesned/Terraform_aws.git', branch: 'main', credentialsId: 'github-credentials'
             }
         }
         stage('Plan') {
@@ -29,8 +26,7 @@ pipeline {
             steps {
                 script {
                     def plan = readFile 'tfplan.txt'
-                    input message: "Do you want to apply the plan?", 
-                    parameters: [text(name: 'Plan', description: 'Please review the plan', defaultValue: plan)]
+                    input message: "Do you want to apply the plan?", parameters: [text(name: 'Plan', description: 'Please review the plan', defaultValue: plan)]
                 }
             }
         }
